@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { SaucesList } from './SaucesList';
-
+import ItemView from './Items';
 // import and prepend the api url to any fetch calls
 import apiURL from '../api';
+
 
 export const App = () => {
 
 	const [sauces, setSauces] = useState([]);
+	const [selectedItem, setSelectedItem] = useState(null);
 
 	async function fetchSauces(){
 		try {
@@ -26,8 +28,12 @@ export const App = () => {
 	return (
 		<main>	
       <h1>Sauce Store</h1>
-			<h2>All things 🔥</h2>
-			<SaucesList sauces={sauces} />
+      <h2>All things 🔥</h2>
+      {selectedItem ? (
+        <ItemView itemId={selectedItem} />
+      ) : (
+        <SaucesList sauces={sauces} onItemSelected={setSelectedItem} />
+      )}
 		</main>
 	)
 }
