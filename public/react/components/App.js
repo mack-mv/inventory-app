@@ -29,10 +29,9 @@ export const App = () => {
 		<main>	
       <h1>Sauce Store</h1>
       <h2>All things 🔥</h2>
-      {selectedItem ? (
-        <ItemView itemId={selectedItem} />
-      ) : (
-        <SaucesList sauces={sauces} onItemSelected={setSelectedItem} />
+	  <SaucesList sauces={sauces} onItemSelected={setSelectedItem} />
+      {selectedItem && (
+        <ItemView itemId={selectedItem} onClose={() => setSelectedItem(null)} />
       )}
 		</main>
 	)

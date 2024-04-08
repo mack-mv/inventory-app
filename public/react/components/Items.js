@@ -1,35 +1,38 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import apiURL from '../api';
 
-class ItemView extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      item: null,
+
+
+
+
+const ItemView = ({ sauceId, onClose }) => {
+  const [sauce, setSauces] = useState(null);
+
+  useEffect(() => {
+    const fetchItem = async () => {
+      
+        const response = await fetch(`${apiURL}/sauces/${sauceId}`);
+        const itemData = await response.json();
+        setSauces(itemData);
+       
     };
+
+    fetchItem();
+  }, [sauceId]); 
+
+  if (!sauce) {
+    return <div>Loading...</div>;
   }
 
-  async componentDidMount() {
-     
-     const response = await fetch(`${apiURL}/sauces`)
-     .then(response => response.json())
-     .then(item => this.setState({ item }));
-  }
-
-  render() {
-    const { item } = this.state;
-
-    if (!item) {
-      return <div>Loading...</div>;
-    }
-
-    return (
-      <div>
-        <h1>{item.name}</h1>
-        <p>{item.description}</p>
-        {/* Add more item details here */}
-      </div>
-    );
-  }
-}
+  return (
+    <div className='modal'>
+      <button onClick={onClose}>Close</button>
+      <h1>{sauce.name}</h1>
+      <p>{sauce.description}</p>
+      {/* Add more item details here */}
+    </div>
+  );
+};
 
 export default ItemView;
+
