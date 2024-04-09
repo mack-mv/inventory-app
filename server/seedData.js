@@ -1,4 +1,17 @@
 module.exports = {
+
+   //MichaelH - Example user tables
+   users: [
+      { username: 'user1', email: 'user1@example.com', password: 'pass1' },
+      { username: 'user2', email: 'user2@example.com', password: 'pass2' },
+    ],
+
+    //MichaelH - Example order tables
+   orders: [
+      { products: 'product1, product2', userId: 1 },
+      { products: 'product3, product4', userId: 2 },
+    ],
+
   sauces: [
     {"name" : "Sriracha", "image" : "https://64.media.tumblr.com/12cd128183713bf928bda87a24f22487/tumblr_ne6jee85PM1tha1vgo1_250.gif"},
     {"name" : "Franks", "image": "https://cdn.streamelements.com/uploads/1887a0da-3642-4795-b5f5-774d5b377e52.gif"},
