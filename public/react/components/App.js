@@ -1,33 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { SaucesList } from './SaucesList';
-
+import { itemsList } from './ItemsList';
+import itemView from './Items';
 // import and prepend the api url to any fetch calls
 import apiURL from '../api';
 
+
 export const App = () => {
 
-	const [sauces, setSauces] = useState([]);
+	const [items, setitems] = useState([]);
+	const [selectedItem, setSelectedItem] = useState(null);
 
-	async function fetchSauces(){
+	async function fetchitems(){
 		try {
-			const response = await fetch(`${apiURL}/sauces`);
-			const saucesData = await response.json();
+			const response = await fetch(`${apiURL}/items`);
+			const itemsData = await response.json();
 			
-			setSauces(saucesData);
+			setitems(itemsData);
 		} catch (err) {
 			console.log("Oh no an error! ", err)
 		}
 	}
 
 	useEffect(() => {
-		fetchSauces();
+		fetchitems();
 	}, []);
 
 	return (
 		<main>	
       <h1>Sauce Store</h1>
-			<h2>All things 🔥</h2>
-			<SaucesList sauces={sauces} />
+      <h2>All things 🔥</h2>
+	  <itemsList items={itemsList} onItemSelected={setSelectedItem} />
+      {selectedItem && (
+        <itemView itemId={selectedItem} onClose={() => setSelectedItem(null)} />
+      )}
 		</main>
 	)
 }
