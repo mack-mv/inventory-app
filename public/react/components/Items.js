@@ -2,37 +2,34 @@ import React, {useState, useEffect} from 'react';
 import apiURL from '../api';
 
 
-
-
-
-const ItemView = ({ sauceId, onClose }) => {
-  const [sauce, setSauces] = useState(null);
+const itemView = ({ itemId, onClose }) => {
+  const [item, setItem] = useState(null);
 
   useEffect(() => {
     const fetchItem = async () => {
       
-        const response = await fetch(`${apiURL}/sauces/${sauceId}`);
+        const response = await fetch(`${apiURL}/items/${itemId}`);
         const itemData = await response.json();
-        setSauces(itemData);
+        setItem(itemData);
        
     };
 
     fetchItem();
-  }, [sauceId]); 
+  }, [itemId]); 
 
-  if (!sauce) {
+  if (!item) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className='modal'>
       <button onClick={onClose}>Close</button>
-      <h1>{sauce.name}</h1>
-      <p>{sauce.description}</p>
+      <h1>{item.name}</h1>
+      <p>{item.description}</p>
       {/* Add more item details here */}
     </div>
   );
 };
 
-export default ItemView;
+export default itemView;
 
