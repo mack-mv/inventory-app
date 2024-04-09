@@ -25,13 +25,66 @@ export const App = () => {
 		fetchitems();
 	}, []);
 
+	// Alex - Added the below functions to handle adding, deleting, and updating items
+	const addItem = async (item) => {
+		try {
+			const response = await fetch(`${apiURL}/items`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(item)
+			});
+			const newItem = await response.json();
+			setitems([...items, newItem]);
+		} catch (err) {
+			console.log("error adding item! ", err)
+		}
+	}
+
+	const deleteItem = async (itemId) => {
+		try {
+			const response = await fetch(`${apiURL}/items/${itemId}`, {
+				method: 'DELETE'
+			});
+			if (response.status === 204) {
+				setitems(items.filter(item => item.id !== itemId));
+			}
+		} catch (err) {
+			console.log("error deleting item! ", err)
+		}
+	}
+
+	const updateItem = async (item) => {
+		try {
+			const response = await fetch(`${apiURL}/items/${item.id}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(item)
+			});
+			if (response.status === 200) {
+				const updatedItem = await response.json();
+				setitems(items.map(item => item.id === updatedItem.id ? updatedItem : item));
+			}
+		} catch (err) {
+			console.log("error updating item! ", err)
+		}
+	}
+
+
+//Alex - Added onDelete and onUpdate props
 	return (
 		<main>	
       <h1>Sauce Store</h1>
       <h2>All things 🔥</h2>
 	  <itemsList items={itemsList} onItemSelected={setSelectedItem} />
       {selectedItem && (
-        <itemView itemId={selectedItem} onClose={() => setSelectedItem(null)} />
+        <itemView itemId={selectedItem} onClose={() => setSelectedItem(null)}
+		onDelete={deleteItem}     
+		onUpdate={updateItem}
+		 />
       )}
 		</main>
 	)
