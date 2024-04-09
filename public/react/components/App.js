@@ -13,7 +13,7 @@ export const App = () => {
 			const response = await fetch(`${apiURL}/items`);
 			const itemsData = await response.json();
 			
-			setSauces(itemsData);
+			setItems(itemsData);
 		} catch (err) {
 			console.log("Oh no an error! ", err)
 		}
@@ -27,7 +27,7 @@ export const App = () => {
 		<main>	
       <h1>Item Store</h1>
 			<h2>All things 🔥</h2>
-			<ItemList items={items} />
+			<ItemsList items={items} />
 		</main>
 	)
 }
