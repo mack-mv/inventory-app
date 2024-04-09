@@ -27,7 +27,7 @@ export const App = () => {
 
 	return (
 		<main>	
-      <h1>Sauce Store</h1>
+      <h1>Items Store</h1>
       <h2>All things 🔥</h2>
 	  <itemsList items={itemsList} onItemSelected={setSelectedItem} />
       {selectedItem && (
