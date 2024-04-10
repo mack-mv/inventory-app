@@ -6,7 +6,7 @@ const { Sauce } = require("../models");
 router.get("/", async (req, res, next) => {
   try {
     const sauces = await Sauce.findAll();
-    res.json(sauces);     //Alex - .json() will send a JSON response
+    res.send(sauces);
   } catch (error) {
     next(error);
   }
