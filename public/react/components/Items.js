@@ -23,9 +23,10 @@ const itemView = ({ itemId, onClose }) => {
   if (!item) {
     return <div>Loading...</div>;
   }
-
+// Alex - added deleteItem function
   return (
     <div className='modal'>
+      <button onClick={() => deleteItem(item.id)}>Delete</button>   
       <button onClick={onClose}>Close</button>
       {isEditing ? (
         <ItemForm initialState={item} />
