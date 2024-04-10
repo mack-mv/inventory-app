@@ -4,7 +4,10 @@ import apiURL from '../api';
 
 const itemView = ({ itemId, onClose }) => {
   const [item, setItem] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
 
+  const handleEdit = () => setIsEditing(!isEditing);
+  
   useEffect(() => {
     const fetchItem = async () => {
       
@@ -25,9 +28,15 @@ const itemView = ({ itemId, onClose }) => {
     <div className='modal'>
       <button onClick={() => deleteItem(item.id)}>Delete</button>   
       <button onClick={onClose}>Close</button>
-      <h1>{item.name}</h1>
-      <p>{item.description}</p>
-      {/* Add more item details here */}
+      {isEditing ? (
+        <ItemForm initialState={item} />
+      ) : (
+        <>
+          <h1>{item.name}</h1>
+          <p>{item.description}</p>
+          <button onClick={handleEdit}>Edit</button>
+        </>
+      )}
     </div>
   );
 };
