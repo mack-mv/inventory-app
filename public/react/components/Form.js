@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import apiURL from '../api';
 
 // function for the form
 function ItemForm({initialState}) {
@@ -21,7 +22,7 @@ function ItemForm({initialState}) {
 const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(initialState ? `/api/items/${initialState.id}` : '/api/items', {
+      const response = await fetch(initialState ? `${apiURL}/items/${initialState.id}` : '/api/items', {
         method: initialState ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,21 +47,21 @@ const handleSubmit = async (event) => {
     <form onSubmit={handleSubmit}>
       <label>
         Name:
-        <input type="text" name="name" onChange={handleChange} />
+        <input type="text" name="name" value={formState.name} onChange={handleChange} />
       </label>
       <label>
         Description:
-        <input type="text" name="description" onChange={handleChange} />
+        <input type="text" name="description" value={formState.description} onChange={handleChange} />
       </label>
       <label>
         Price:
-        <input type="number" name="price" onChange={handleChange} />
+        <input type="number" name="price" value ={formState.price} onChange={handleChange} />
       </label>
       <label>
         Image URL:
-        <input type="text" name="image" onChange={handleChange} />
+        <input type="text" name="image" value ={formState.image} onChange={handleChange} />
       </label>
-      <input type="submit" value="Add Item" />
+      <input type="submit" value="Edit" />
     </form>
   );
 }
