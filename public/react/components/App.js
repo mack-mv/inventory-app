@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { itemsList } from './ItemsList';
-import itemView from './Items';
+import { ItemsList } from './ItemsList';
+import ItemView from './Items';
 // import and prepend the api url to any fetch calls
 import apiURL from '../api';
 
@@ -77,15 +77,13 @@ export const App = () => {
 //Alex - Added onDelete and onUpdate props
 	return (
 		<main>	
-      <h1>Items Store</h1>
-      <h2>All things 🔥</h2>
-	  <itemsList items={itemsList} onItemSelected={setSelectedItem} />
-      {selectedItem && (
-        <itemView itemId={selectedItem} onClose={() => setSelectedItem(null)}
+    <h1>Items Store</h1>
+    <h2>All things 🔥</h2>
+	<ItemsList items={items} onItemSelected={setSelectedItem} />
+	<ItemView itemId={selectedItem} onClose={() => setSelectedItem(null)}
 		onDelete={deleteItem}     
 		onUpdate={updateItem}
 		 />
-      )}
 		</main>
 	)
 }
