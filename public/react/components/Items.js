@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import apiURL from '../api';
 
 
-const itemView = ({ itemId, onClose }) => {
+const ItemView = ({ itemId, onClose }) => {
   const [item, setItem] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -41,5 +41,5 @@ const itemView = ({ itemId, onClose }) => {
   );
 };
 
-export default itemView;
+export default ItemView;
 

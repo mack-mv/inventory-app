@@ -1,7 +1,7 @@
 import React from 'react';
 import { Items } from './Items';
 
-export const itemsList = ({items, onItemSelected}) => {
+export const ItemsList = ({items, onItemSelected}) => {
 	return <>
 	<div>
       {items.map(item => (
