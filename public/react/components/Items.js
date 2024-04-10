@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import apiURL from '../api';
 
-
-const ItemView = ({ itemId, onClose }) => {
+// Alex - added onDelete and onUpdate to the props
+const ItemView = ({ itemId, onClose, onDelete, onUpdate }) => {
   const [item, setItem] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -26,18 +26,23 @@ const ItemView = ({ itemId, onClose }) => {
 // Alex - added deleteItem function
   return (
     <div className='modal'>
-      <button onClick={() => deleteItem(item.id)}>Delete</button>   
+      <button onClick={() => onDelete(item.id)}>Delete</button>   
       <button onClick={onClose}>Close</button>
       {isEditing ? (
-        <ItemForm initialState={item} />
-      ) : (
-        <>
-          <h1>{item.name}</h1>
-          <p>{item.description}</p>
-          <button onClick={handleEdit}>Edit</button>
-        </>
-      )}
-    </div>
+            <ItemForm initialState={item}
+              onSave={item => {
+              onUpdate(item);
+              setIsEditing(false);
+            }
+            }/>
+          ) : (
+            <>
+              <h1>{item.name}</h1>
+              <p>{item.description}</p>
+              <button onClick={handleEdit}>Edit</button>
+            </>
+          )}
+        </div>
   );
 };
 

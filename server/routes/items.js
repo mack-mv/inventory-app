@@ -38,14 +38,15 @@ router.post("/", async (req, res, next) => {
     next(error);
   }
 });
-
+// Alex - corrected some code to use the correct status code
 router.delete("/:id", async (req, res, next) => {
   try {
-    const deleteItem = await Item.findByPk(req.params.id).destroy(req.body);
-    if (!deleteItem) {
-      throw new Error('Item not deleted');
+    const item = await Item.findByPk(req.params.id);
+    if (!item) {
+      throw new Error('Item not found');
     }
-    res.json(deleteItem);
+    await item.destroy();
+    res.status(204).send(); // Use 204 to indicate success with no content to send back
   } catch (error) {
     next(error);
   }
@@ -53,10 +54,11 @@ router.delete("/:id", async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   try {
-    const updateItem = await Item.findByPk(req.params.id).update(req.body);
-    if (!updateItem) {
-      throw new Error('Item not updated');
+    const item = await Item.findByPk(req.params.id);
+    if (!item) {
+      throw new Error('Item not found');
     }
+    const updateItem = await item.update(req.body);
     res.json(updateItem);
   } catch (error) {
     next(error);
