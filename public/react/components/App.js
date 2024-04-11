@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ItemsList } from './ItemsList';
 import ItemView from './Items';
+import ItemCreation from './ItemCreation';
 // import and prepend the api url to any fetch calls
 import apiURL from '../api';
 
@@ -88,7 +89,12 @@ export const App = () => {
 		<main>
 			<div className='header'>
 		<h1>MACK Store</h1>
-			</div>  
+			</div> 
+
+			<div>
+      			<ItemCreation onCreate={addItem} />
+    	</div>
+
 		{selectedItem && (
 			<ItemView 
 			itemId={selectedItem} 
