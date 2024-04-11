@@ -30,8 +30,14 @@ const handleSubmit = async (event) => {
         body: JSON.stringify(formState),
       });
       const data = await response.json();
-      
-      onSave(data);
+      console.log(data);
+  
+      setFormState({
+        name: '',
+        description: '',
+        price: '',
+        image: '',
+      });
     } catch(error){
       console.error('Error:', error);
     }
