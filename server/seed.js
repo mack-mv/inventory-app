@@ -14,7 +14,7 @@ const seed = async () => {
     
         // insert data
         await Promise.all(sauces.map(sauce => Sauce.create(sauce)));
-        // Alex - Added the below line to seed the items table
+        // Alex - seed the items table
         await Promise.all(items.map(item => Item.create(item)));
         //MichaelH - seed the User table
         await Promise.all(users.map(user => User.create(user)));
