@@ -39,6 +39,7 @@ const ItemView = ({ itemId, onClose, onDelete, onUpdate }) => {
             <button className='button-pretty' onClick={() => {
                 if (window.confirm('Are you sure you want to delete this item?')) {
                   onDelete(item.id);
+                  window.location.reload();
                 }
               }}>Delete</button>
             <button className='button-pretty' onClick={onClose}>Close</button>

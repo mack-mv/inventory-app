@@ -98,4 +98,4 @@ export const App = () => {
 		<ItemsList items={items} onItemSelected={handleItemSelected} />
 		</main>
 	);
-}
+ }
