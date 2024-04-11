@@ -45,24 +45,19 @@ const handleSubmit = async (event) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Name:
-        <input type="text" name="name" value={formState.name} onChange={handleChange} />
-      </label>
-      <label>
-        Description:
-        <input type="text" name="description" value={formState.description} onChange={handleChange} />
-      </label>
-      <label>
-        Price:
-        <input type="number" name="price" value ={formState.price} onChange={handleChange} />
-      </label>
-      <label>
-        Image URL:
-        <input type="text" name="image" value ={formState.image} onChange={handleChange} />
-      </label>
-      <input type="submit" value="Edit" />
-    </form>
+  <div className="form-field">
+    <label htmlFor="name">Name:</label>
+    <input type="text" id="name" name="name" value={formState.name} onChange={handleChange} />
+    <label htmlFor="description">Description:</label>
+    <input type="text" id="description" name="description" value={formState.description} onChange={handleChange} />
+    <label htmlFor="price">Price:</label>
+    <input type="number" id="price" name="price" value={formState.price} onChange={handleChange} />
+    <label htmlFor="image">Image URL:</label>
+    <input type="text" id="image" name="image" value={formState.image} onChange={handleChange} />
+    <input type="submit" className="button-pretty" value={initialState ? "Update" : "Create"} />
+  </div>
+</form>
+
   );
 }
 
