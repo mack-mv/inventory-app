@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ItemsList } from './ItemsList';
 import ItemView from './Items';
+import ItemCreation from './ItemCreation';
 // import and prepend the api url to any fetch calls
 import apiURL from '../api';
 
@@ -35,20 +36,8 @@ export const App = () => {
 	}, []);
 
 	// Alex - Added the below functions to handle adding, deleting, and updating items
-	const addItem = async (item) => {
-		try {
-			const response = await fetch(`${apiURL}/items`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(item)
-			});
-			const newItem = await response.json();
-			setitems([...items, newItem]);
-		} catch (err) {
-			console.log("error adding item! ", err)
-		}
+	const addItem = item => {
+		setitems(prevItems => [...prevItems, item]);
 	}
 
 	const deleteItem = async (itemId) => {
@@ -88,7 +77,12 @@ export const App = () => {
 		<main>
 			<div className='header'>
 		<h1>MACK Store</h1>
-			</div>  
+			</div> 
+
+			<div>
+      			<ItemCreation onCreate={addItem} />
+    	</div>
+
 		{selectedItem && (
 			<ItemView 
 			itemId={selectedItem} 

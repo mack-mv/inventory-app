@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import apiURL from '../api';
 
 // function for the form
-function ItemForm({initialState}) {
+function ItemForm({initialState, onSave}) {
     const [formState, setFormState] = useState(initialState || {
         name: '',
         description: '',
@@ -30,14 +30,8 @@ const handleSubmit = async (event) => {
         body: JSON.stringify(formState),
       });
       const data = await response.json();
-      console.log(data);
-  
-      setFormState({
-        name: '',
-        description: '',
-        price: '',
-        image: '',
-      });
+      
+      onSave(data);
     } catch(error){
       console.error('Error:', error);
     }
