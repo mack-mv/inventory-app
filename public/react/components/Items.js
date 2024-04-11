@@ -36,17 +36,21 @@ const ItemView = ({ itemId, onClose, onDelete, onUpdate }) => {
           </div>
           <div className="button-container">
             <button className='button-pretty' onClick={handleEdit}>Edit</button>
-            <button className='button-pretty' onClick={() => onDelete(item.id)}>Delete</button>
+            <button className='button-pretty' onClick={() => {
+                if (window.confirm('Are you sure you want to delete this item?')) {
+                  onDelete(item.id);
+                }
+              }}>Delete</button>
             <button className='button-pretty' onClick={onClose}>Close</button>
           </div>
         </div>
       </div>
       {/* Conditionally render the edit form below the modal view */}
       {isEditing && (
-        <ItemForm initialState={item}
+        <ItemForm initialState={item}        
           onSave={item => {
             onUpdate(item);
-            setIsEditing(false);
+            setIsEditing(false);            
           }}
         />
       )}
