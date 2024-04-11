@@ -9,6 +9,7 @@ export const App = () => {
 
 	const [items, setitems] = useState([]);
 	const [selectedItem, setSelectedItem] = useState(null);
+	
 
 	// MichaelH - Scrolls to top of page when item is selected
 	const handleItemSelected = (itemId) => {
@@ -76,6 +77,10 @@ export const App = () => {
 			if (response.status === 200) {
 				const updatedItem = await response.json();
 				setitems(items.map(item => item.id === updatedItem.id ? updatedItem : item));
+				// If the updated item is currently selected, update the selectedItem state as well
+				if (selectedItem === item.id) {
+					setSelectedItem(updatedItem.id);
+				  }		
 			}
 		} catch (err) {
 			console.log("error updating item! ", err)
@@ -90,11 +95,10 @@ export const App = () => {
 		<h1>MACK Store</h1>
 			</div>  
 		{selectedItem && (
-			<ItemView 
+			<ItemView 			
 			itemId={selectedItem} 
 			onClose={() => setSelectedItem(null)}
-			onDelete={deleteItem}     
-			onUpdate={updateItem}
+			onDelete={deleteItem}			
 			/>
 		)}
 		<ItemsList items={items} onItemSelected={handleItemSelected} />
