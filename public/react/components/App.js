@@ -85,8 +85,10 @@ export const App = () => {
 
 //Alex - Added onDelete and onUpdate props
 	return (
-		<main>  
+		<main>
+			<div className='header'>
 		<h1>MACK Store</h1>
+			</div>  
 		{selectedItem && (
 			<ItemView 
 			itemId={selectedItem} 
