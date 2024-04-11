@@ -181,3 +181,7 @@ html, body {
   border-radius: 4px;
 }
 
+.createButton {
+  display: flex;
+  justify-content: center;
+}
