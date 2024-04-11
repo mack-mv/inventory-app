@@ -12,11 +12,9 @@ const ItemView = ({ itemId, onClose, onDelete, onUpdate }) => {
   
   useEffect(() => {
     const fetchItem = async () => {
-      
-        const response = await fetch(`${apiURL}/items/${itemId}`);
-        const itemData = await response.json();
-        setItem(itemData);
-       
+      const response = await fetch(`${apiURL}/items/${itemId}`);
+      const itemData = await response.json();
+      setItem(itemData);
     };
 
     fetchItem();
@@ -25,28 +23,37 @@ const ItemView = ({ itemId, onClose, onDelete, onUpdate }) => {
   if (!item) {
     return <div>Loading...</div>;
   }
-// Alex - added deleteItem function
+
   return (
-    <div className='modal'>
-      <button onClick={() => onDelete(item.id)}>Delete</button>   
-      <button onClick={onClose}>Close</button>
-      {isEditing ? (
-            <ItemForm initialState={item}
-              onSave={item => {
-              onUpdate(item);
-              setIsEditing(false);
-            }
-            }/>
-          ) : (
-            <>
-              <h1>{item.name}</h1>
-              <p>{item.description}</p>
-              <button onClick={handleEdit}>Edit</button>
-            </>
-          )}
+    <div className="modal-container">
+      {/* Always display the item view */}
+      <div className='modal'>
+        <div className="item-container"> {/* Flex container */}
+          <img src={item.image} alt={item.name} className="focused-image" />
+          <div className="item-text"> {/* Container for text */}
+            <h1>{item.name}</h1>
+            <p>{item.description}</p>
+          </div>
+          <div className="button-container">
+            <button className='button-pretty' onClick={handleEdit}>Edit</button>
+            <button className='button-pretty' onClick={() => onDelete(item.id)}>Delete</button>
+            <button className='button-pretty' onClick={onClose}>Close</button>
+          </div>
         </div>
+      </div>
+      {/* Conditionally render the edit form below the modal view */}
+      {isEditing && (
+        <ItemForm initialState={item}
+          onSave={item => {
+            onUpdate(item);
+            setIsEditing(false);
+          }}
+        />
+      )}
+    </div>
   );
 };
 
 export default ItemView;
+
 
