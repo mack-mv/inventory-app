@@ -36,20 +36,8 @@ export const App = () => {
 	}, []);
 
 	// Alex - Added the below functions to handle adding, deleting, and updating items
-	const addItem = async (item) => {
-		try {
-			const response = await fetch(`${apiURL}/items`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(item)
-			});
-			const newItem = await response.json();
-			setitems([...items, newItem]);
-		} catch (err) {
-			console.log("error adding item! ", err)
-		}
+	const addItem = item => {
+		setitems(prevItems => [...prevItems, item]);
 	}
 
 	const deleteItem = async (itemId) => {
