@@ -10,6 +10,15 @@ export const App = () => {
 	const [items, setitems] = useState([]);
 	const [selectedItem, setSelectedItem] = useState(null);
 
+	// MichaelH - Scrolls to top of page when item is selected
+	const handleItemSelected = (itemId) => {
+		setSelectedItem(itemId);
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		});
+	};
+
 	async function fetchitems(){
 		try {
 			const response = await fetch(`${apiURL}/items`);
@@ -76,14 +85,19 @@ export const App = () => {
 
 //Alex - Added onDelete and onUpdate props
 	return (
-		<main>	
-    <h1>Items Store</h1>
-    <h2>All things 🔥</h2>
-	<ItemsList items={items} onItemSelected={setSelectedItem} />
-	<ItemView itemId={selectedItem} onClose={() => setSelectedItem(null)}
-		onDelete={deleteItem}     
-		onUpdate={updateItem}
-		 />
+		<main>
+			<div className='header'>
+		<h1>MACK Store</h1>
+			</div>  
+		{selectedItem && (
+			<ItemView 
+			itemId={selectedItem} 
+			onClose={() => setSelectedItem(null)}
+			onDelete={deleteItem}     
+			onUpdate={updateItem}
+			/>
+		)}
+		<ItemsList items={items} onItemSelected={handleItemSelected} />
 		</main>
-	)
+	);
 }
